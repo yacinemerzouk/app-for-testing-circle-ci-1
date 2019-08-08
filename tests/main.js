@@ -14,7 +14,7 @@ describe("app-for-testing-circleci-1", function () {
 
   if (Meteor.isServer) {
     it("server is not client", function () {
-      assert.strictEqual(Meteor.isClient, true);
+      assert.strictEqual(Meteor.isClient, false);
     });
   }
 });
