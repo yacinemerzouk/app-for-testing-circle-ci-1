@@ -1,0 +1,43 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.11.4
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/master
+    steps:
+      - checkout
+      - run:
+          name: Install Meteor
+          command: "curl https://install.meteor.com | /bin/sh"
+      - run:
+          name: Update npm
+          command: meteor npm install
+      - run:
+          name: Install bcrypt
+          command: "meteor npm install --save bcrypt"
+      - run:
+          name: Install PhantomJS
+          command: "meteor npm i --save-dev phantomjs-prebuilt"
+      - run:
+          name: Tests
+          command: "TEST_BROWSER_DRIVER=phantomjs meteor test --once --driver-package meteortesting:mocha"
+          shell: /bin/sh
+
+workflows:
+  version: 2
+  Test basic Meteor app:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
