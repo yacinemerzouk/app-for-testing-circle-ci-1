@@ -30,7 +30,7 @@ jobs:
           command: "meteor npm i --save-dev phantomjs-prebuilt"
       - run:
           name: Install Chimp
-          command: "sudo npm install --global chimp"
+          command: "npm i chimp"
       - run:
           name: Run unit tests
           command: "TEST_BROWSER_DRIVER=phantomjs meteor test --once --driver-package meteortesting:mocha"
